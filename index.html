@@ -20,10 +20,10 @@
             <ul class="list-unstyled components">
                 <p><h2>Menu</h2></p>
                 <li class="active">
-                    <a href="#" data-toggle="" aria-expanded="false" class="">Inicio</a>
+                    <a href="#" data-toggle="" aria-expanded="false" id="inicio" class="">Inicio</a>
                 </li>
                 <li>
-                    <a href="#">Comics</a>
+                    <a href="#" id="comics-row">Comics</a>
                 </li>
                 <li>
                     <a href="#">Series</a>
@@ -36,13 +36,56 @@
         </nav>
 
                 <div id="container">
-
+                	<div class="alert alert-success">
+                		<h3>MARVEL API</h3>
+                	</div>
          		<div class="row" id="marvel-row">
-	              <script src="js/marvel.js" type="text/javascript">
-     			  </script>
-
                 </div>
-            </div>
+
+
+
+								<!-- Codigo JavaScript !-->
+
+<script type="text/javascript">
+
+	//Click a enlace de comics
+	$(document).ready(function(){
+  	$('body').on('click','#comics-row', function(){
+        $('#marvel-row').hide();
+        $('#comics-row').show();
+         					 
+
+       //Funcion para obtener listado de comics
+	  const marvelComics = {
+      renderComics:()=>{
+	  const urlAPIComics ='https://gateway.marvel.com:443/v1/public/comics?ts=1apikey=e63aa0d7e6f42bdea5d249bea68474d1&hash=8512dde0b16a29e7fe7c75889f5cb469';
+
+ 	  const containerComics=document.querySelector('#comics-row');
+	  var contentHTMLComics='';
+	  fetch(urlAPIComics)
+	 .then(res=>res.json())
+	 .then((json)=>{
+	 for(var hero of json.data.results){
+	 var urlComics = comics.urls[0].url;
+   	 contentHTMLComics+=`
+     <div class="col-md-4">
+	 <h3 class="title">${comics.code}</h3> `;
+	 }
+     containerComics.innerHTML=contentHTMLComics;
+        })
+      }
+    };
+
+marvelComics.renderComics();
+
+   })
+})
+
+</script>
+	              
+<script src="js/marvel.js" type="text/javascript"></script>
+
+</div>
 
 </body>
 </html>
